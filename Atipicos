@@ -1,0 +1,168 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+from scipy.stats import iqr
+
+cva = np.array([4.4, 5.6, 5.1, 4.8, 4.3, 3.9, 4.7, 5.2, 3.9, 4.4, 4.1, 4.0, 5.2, 5.3, 4.4, 104.4, 4.7, 5.0, 5.0, 4.9, 4.7, 4.8, 5.1, 5.3])
+cva_multi = cva * 9
+
+
+sva = np.array([4.4, 5.6, 5.1, 4.8, 4.3, 3.9, 4.7, 5.2, 3.9, 4.4, 4.1, 4.0, 5.2, 5.3, 4.4, 4.7, 5.0, 5.0, 4.9, 4.7, 4.8, 5.1, 5.3])
+sva_multi = sva * 9
+
+# Estadísticas descriptivas para cva_multi
+mean = np.mean(cva_multi)
+std_dev = np.std(cva_multi)
+min_val = np.min(cva_multi)
+max_val = np.max(cva_multi)
+median = np.median(cva_multi)
+percentiles = np.percentile(cva_multi, [25, 50, 75])
+IQR = iqr(cva_multi)
+min_val = np.min(cva_multi)
+max_val = np.max(cva_multi)
+variance = np.var(cva_multi)
+range_val = np.max(sva_multi) - np.min(cva_multi)
+sum_val = np.sum(sva_multi)
+
+# Imprimir resultados para cva_multi
+print("Resumen con el valor atipico:")
+print(f'Media: {mean}')
+print(f'Desviación estándar: {std_dev}')
+print(f'Mínimo: {min_val}')
+print(f'Máximo: {max_val}')
+print(f'Mediana: {median}')
+print(f'Percentiles 25%, 50%, 75%: {percentiles}')
+print(f'IQR: {IQR}')
+print(f'Valor mínimo: {min_val}')
+print(f'Valor máximo: {max_val}')
+print(f'Varianza: {variance}')
+print(f'Rango: {range_val}')
+print(f'Suma: {sum_val}')
+
+print("\n")
+
+#Calcular la media y la mediana
+mean_val = np.mean(cva_multi)
+median_val = np.median(cva_multi)
+
+# Crear histograma
+plt.figure(figsize=(8, 6))
+plt.hist(cva_multi, bins=7, density=True, edgecolor='black', alpha=0.7)
+
+# Ajustar la distribución normal a los datos
+xmin, xmax = plt.xlim()  # Rango de los ejes X
+x = np.linspace(xmin, xmax, 100)
+p = stats.norm.pdf(x, np.mean(cva_multi), np.std(cva_multi))  # Ajuste normal
+
+# Dibujar la curva de la distribución ajustada
+plt.plot(x, p, 'k', linewidth=2)
+
+# Agregar líneas de media y mediana
+plt.axvline(mean_val, color='r', linestyle='dashed', linewidth=2, label=f'Media: {mean_val:.2f}')
+plt.axvline(median_val, color='g', linestyle='dashed', linewidth=2, label=f'Mediana: {median_val:.2f}')
+
+# Título y etiquetas
+plt.title('Histograma con atipico (media, mediana y curtosis)')
+plt.xlabel('Espesor')
+plt.ylabel('Frecuencia')
+plt.legend()
+
+# Mostrar el gráfico
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8, 6))
+plt.boxplot(cva_multi, vert=False)  # Boxplot horizontal
+plt.title('Box Plot de los Datos con el atipico')
+plt.xlabel('Espesor de la capa')
+plt.grid(False)
+plt.show()
+
+# Calcular la curtosis
+kurtosis_val = stats.kurtosis(cva_multi)
+
+# Imprimir la curtosis
+print(f'Curtosis: {kurtosis_val}')
+
+#------------------------------------------------------------------
+# Estadísticas descriptivas para sva_multi
+mean2 = np.mean(sva_multi)
+std_dev2 = np.std(sva_multi)
+min_val2 = np.min(sva_multi)
+max_val2 = np.max(sva_multi)
+median2 = np.median(sva_multi)
+percentiles2 = np.percentile(sva_multi, [25, 50, 75])
+IQR2 = iqr(sva_multi)
+min_val2 = np.min(sva_multi)
+max_val2 = np.max(sva_multi)
+variance2 = np.var(sva_multi)
+range_val2 = np.max(sva_multi) - np.min(sva_multi)
+sum_val2 = np.sum(sva_multi)
+
+# Imprimir resultados para sva_multi
+print("Resumen sin el valor atipico:")
+print(f'Media: {mean2}')
+print(f'Desviación estándar: {std_dev2}')
+print(f'Mínimo: {min_val2}')
+print(f'Máximo: {max_val2}')
+print(f'Mediana: {median2}')
+print(f'Percentiles 25%, 50%, 75%: {percentiles2}')
+print(f'IQR: {IQR2}')
+print(f'Valor mínimo: {min_val2}')
+print(f'Valor máximo: {max_val2}')
+print(f'Varianza: {variance2}')
+print(f'Rango: {range_val2}')
+print(f'Suma: {sum_val2}')
+
+
+#numero de lista 9
+#obtener resultados estadisticos
+
+
+plt.figure(figsize=(8, 6))
+plt.boxplot(sva_multi, vert=False)  # Boxplot horizontal
+plt.title('Box Plot de los Datos sin el atipico')
+plt.xlabel('Espesor de la capa')
+plt.grid(False)
+plt.show()
+
+
+
+#Calcular la media y la mediana
+mean_val = np.mean(sva_multi)
+median_val = np.median(sva_multi)
+
+# Crear histograma
+plt.figure(figsize=(8, 6))
+plt.hist(sva_multi, bins=7, density=True, edgecolor='black', alpha=0.7)
+
+# Ajustar la distribución normal a los datos
+xmin, xmax = plt.xlim()  # Rango de los ejes X
+x = np.linspace(xmin, xmax, 100)
+p = stats.norm.pdf(x, np.mean(sva_multi), np.std(sva_multi))  # Ajuste normal
+
+# Dibujar la curva de la distribución ajustada
+plt.plot(x, p, 'k', linewidth=2)
+
+# Agregar líneas de media y mediana
+plt.axvline(mean_val, color='r', linestyle='dashed', linewidth=2, label=f'Media: {mean_val:.2f}')
+plt.axvline(median_val, color='g', linestyle='dashed', linewidth=2, label=f'Mediana: {median_val:.2f}')
+
+
+# Título y etiquetas
+plt.title('Histograma sin atipico (media, mediana y curtosis)')
+plt.xlabel('Espesor')
+plt.ylabel('Frecuencia')
+plt.legend()
+
+# Mostrar el gráfico
+plt.grid(True)
+plt.show()
+
+# Calcular la curtosis
+kurtosis_val2 = stats.kurtosis(sva_multi)
+
+# Imprimir la curtosis
+print(f'Curtosis: {kurtosis_val2}')
